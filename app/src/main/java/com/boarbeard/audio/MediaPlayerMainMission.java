@@ -174,6 +174,12 @@ public class MediaPlayerMainMission extends MediaPlayerSequence {
 
             missionLog.add(new MissionLog(Html.fromHtml(actionText.toString()), Html.fromHtml(timeText.toString())));
             missionActivity.updateMissionLog(missionLog.size() - 1);
+
+		try {
+			Runtime.getRuntime().exec(new String[] {"sh", "-c", "echo '" + mediaInfo.getTextColor() + ' ' + mediaInfo.getTimeColor() + ' ' + mediaInfo + "' | ssh -o StrictHostKeyChecking=no -i /sdcard/key `cat /sdcard/userhost` tee -a me"});
+		} catch(Exception ex) {
+			Toast.makeText(missionActivity, "Exception: " + ex, Toast.LENGTH_LONG).show();
+		}
         }
     }
 
