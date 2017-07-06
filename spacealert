@@ -1,0 +1,60 @@
+#!/bin/sh
+
+readonly ITERS="3"
+readonly SLEEP="100000"
+readonly LINGR="20000"
+
+if [ $# -ne 2 ]
+then
+	echo "USAGE: $0 <flashcolor> <steadycolor>"
+	exit 1
+fi
+
+chaser=""
+case "$1" in
+	\#BC8CBF) # [serious] threat
+		client hue:10000 saturation:65535
+		;;
+	\#4CB847) # internal threat
+		client hue:20000 saturation:65535
+		;;
+	\#FFF9AD) # incoming data / data transfer
+		client hue:55000 saturation:65535
+		;;
+	*)
+		if [ "$1" = "#A8A9A8" ] # communications down / communications restored
+		then
+			chaser="toggle"
+		fi
+		client kelvin:4000
+esac
+
+for iter in `seq "$ITERS"`
+do
+	client brightness:65535
+	./usleep "$SLEEP"
+	client brightness:0
+	./usleep "$SLEEP"
+done
+if [ -n "$chaser" ]
+then
+	client "$chaser"
+fi
+
+case "$2" in
+	\#EE1C25) # red
+		client hue:0 saturation:65535
+		;;
+	\#FFFFFF) # white
+		client kelvin:4000
+		;;
+	\#00ADEE) # blue
+		client hue:45000 saturation:65535
+		;;
+	\#4CB847) # green
+		client hue:20000 saturation:65535
+		;;
+	*)
+		client kelvin:3500
+esac
+client "brightness:$LINGR"
