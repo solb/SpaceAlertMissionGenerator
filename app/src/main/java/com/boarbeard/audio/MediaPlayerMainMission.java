@@ -176,7 +176,7 @@ public class MediaPlayerMainMission extends MediaPlayerSequence {
             missionActivity.updateMissionLog(missionLog.size() - 1);
 
 		try {
-			Runtime.getRuntime().exec(new String[] {"sh", "-c", "ssh -o StrictHostKeyChecking=no -i /sdcard/key `cat /sdcard/userhost` spacealert '" + mediaInfo.getTextColor() + "' '" + mediaInfo.getTimeColor() + "'"});
+			Runtime.getRuntime().exec(new String[] {"sh", "-c", "ssh -o StrictHostKeyChecking=no -i /sdcard/com.boarbeard/key `cat /sdcard/com.boarbeard/userhost` spacealert '" + mediaInfo.getTextColor() + "' '" + mediaInfo.getTimeColor() + "'"});
 		} catch(Exception ex) {
 			Toast.makeText(missionActivity, "Exception: " + ex, Toast.LENGTH_LONG).show();
 		}
